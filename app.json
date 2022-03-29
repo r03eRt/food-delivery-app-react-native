@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "food-delivery-app-react-native",
+    "slug": "food-delivery-app-react-native",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "food-delivery-app-react-native"
+}
