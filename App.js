@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { MainLayout } from './screens/MainLayout'
 import AppLoading from "expo-app-loading";
 import {useFonts} from './hooks/useFonts';
+import { CustomDrawer } from "./navigation/CustomDrawer";
 
 const Stack = createStackNavigator();
 
@@ -36,7 +37,7 @@ const App = () => {
             >
                 <Stack.Screen
                     name="Home"
-                    component={MainLayout}
+                    component={CustomDrawer}
                 />
             </Stack.Navigator>
         </NavigationContainer>

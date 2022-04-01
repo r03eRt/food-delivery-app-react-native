@@ -16,7 +16,7 @@ export const MainLayout = () => {
         >
             <Text style={{
                ...FONTS.h3
-            }}>MainLayout2</Text>
+            }}>MainLayout</Text>
         </View>
     )
 }
