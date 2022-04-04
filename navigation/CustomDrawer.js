@@ -1,6 +1,7 @@
 import { createDrawerNavigator, DrawerContentScrollView } from '@react-navigation/drawer';
-import React from 'react';
+import React, { useState } from 'react';
 import {View, StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
+import Animated from 'react-native-reanimated';
 import { COLORS, constants, dummyData, FONTS, icons, SIZES } from '../constants';
 import { MainLayout } from '../screens/MainLayout';
 import { Search } from '../screens/Search/Search';
@@ -8,9 +9,27 @@ import { Search } from '../screens/Search/Search';
 
 const Drawer = createDrawerNavigator();
 
-// export const CustomDrawerItem = ({icon, label }) => {
-
-// }
+export const CustomDrawerItem = ({icon, label }) => {
+    return(
+        <TouchableOpacity style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            height: 40,
+            marginBottom: SIZES.base,
+            paddingLeft: SIZES.radius,
+            borderRadius: SIZES.base
+        }}>
+            <Image source={icon} style={{width: 20, height: 20, tintColor: COLORS.white }}/>
+            <Text style={{
+                marginLeft: 15,
+                color: COLORS.white,
+                ...FONTS.h3
+            }}>
+                {label}
+            </Text>
+        </TouchableOpacity>
+    )
+}
 
 export const CustomDrawerContent = ({navigation}) => {
     return (
@@ -73,10 +92,29 @@ export const CustomDrawerContent = ({navigation}) => {
                     flex: 1,
                     marginTop: SIZES.padding
                 }}>
-                    {/* <CustomDrawerItem
-                        label={constants.screens.home}
-                        icon={icons.home}
-                    /> */}
+                    <CustomDrawerItem label={constants.screens.home} icon={icons.home} />
+                    <CustomDrawerItem label={constants.screens.my_wallet} icon={icons.wallet} />
+                    <CustomDrawerItem label={constants.screens.notification} icon={icons.notification} />
+                    <CustomDrawerItem label={constants.screens.favourite} icon={icons.favourite} />
+                    {/** Line DIvider */}
+                    <View style={{
+                        height: 1,
+                        backgroundColor: COLORS.lightGray1,
+                        marginVertical: SIZES.radius,
+                        marginLeft: SIZES.radius,
+                        backgroundColor: COLORS.lightGray1
+                    }}>                    
+                    </View>
+                    <CustomDrawerItem label="Track your order" icon={icons.location} />
+                    <CustomDrawerItem label="Coupons" icon={icons.coupon} />
+                    <CustomDrawerItem label="Settings" icon={icons.setting} />
+                    <CustomDrawerItem label="Invite a friend" icon={icons.profile} />
+                    <CustomDrawerItem label="help center" icon={icons.help} />
+                    <View style={{
+                        marginBottom: SIZES.padding
+                    }}>
+                        <CustomDrawerItem label="Logout" icon={icons.logout} />
+                    </View>
 
                 </View>
 
@@ -86,6 +124,9 @@ export const CustomDrawerContent = ({navigation}) => {
 }
 
 export const CustomDrawer = () => {
+
+    const [progress, setProgress] = useState(new Animated.Value(0));
+
     return (
         <View style={{
             flex: 1,
@@ -109,6 +150,10 @@ export const CustomDrawer = () => {
                 initialRouteName="MainLayout"
                 drawerContent={ 
                         props => {
+                            setTimeout(() => {
+                                setProgress(props.progress);
+                            }, 0)
+                            
                             return (<CustomDrawerContent navigation={props.navigation} />)
                         }
                     }
