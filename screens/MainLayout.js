@@ -11,7 +11,8 @@ export const MainLayout = () => {
             style={{
                 flex: 1,
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                backgroundColor: 'white'
             }}
         >
             <Text style={{

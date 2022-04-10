@@ -6,8 +6,12 @@ import { MainLayout } from './screens/MainLayout'
 import AppLoading from "expo-app-loading";
 import {useFonts} from './hooks/useFonts';
 import { CustomDrawer } from "./navigation/CustomDrawer";
+import { Provider } from "react-redux";
+import { store } from "./stores/store";
 
 const Stack = createStackNavigator();
+
+
 
 const App = () => {
 
@@ -28,6 +32,7 @@ const App = () => {
       }
 
     return (
+      <Provider store={store}>
         <NavigationContainer>
             <Stack.Navigator
                 screenOptions={{
@@ -41,6 +46,8 @@ const App = () => {
                 />
             </Stack.Navigator>
         </NavigationContainer>
+      </Provider>
+        
     )
 }
 

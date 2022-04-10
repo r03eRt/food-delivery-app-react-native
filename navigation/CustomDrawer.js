@@ -2,9 +2,11 @@ import { createDrawerNavigator, DrawerContentScrollView } from '@react-navigatio
 import React, { useState } from 'react';
 import {View, StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
 import Animated from 'react-native-reanimated';
+import { useDispatch, useSelector } from 'react-redux';
 import { COLORS, constants, dummyData, FONTS, icons, SIZES } from '../constants';
 import { MainLayout } from '../screens/MainLayout';
 import { Search } from '../screens/Search/Search';
+import { setSelectedTab } from '../stores/tab/tabActions';
 
 
 const Drawer = createDrawerNavigator();
@@ -32,6 +34,10 @@ export const CustomDrawerItem = ({icon, label }) => {
 }
 
 export const CustomDrawerContent = ({navigation}) => {
+
+    const dispatch = useDispatch();
+    const selectedTab = useSelector(state => state.tab.selectedTab);
+
     return (
         <DrawerContentScrollView
             scrollEnabled={true}
@@ -92,7 +98,16 @@ export const CustomDrawerContent = ({navigation}) => {
                     flex: 1,
                     marginTop: SIZES.padding
                 }}>
-                    <CustomDrawerItem label={constants.screens.home} icon={icons.home} />
+                    <CustomDrawerItem 
+                        label={constants.screens.home}
+                        icon={icons.home}
+                        isFocused={selectedTab === constants.screens.home} 
+                        onPress={() => console.log('AAAA') }
+                        // onPress={ () => { 
+                        //     dispatch(setSelectedTab(constants.screens.home));
+                        //     navigation.navigate('MainLayout'); 
+                        // } } 
+                    />
                     <CustomDrawerItem label={constants.screens.my_wallet} icon={icons.wallet} />
                     <CustomDrawerItem label={constants.screens.notification} icon={icons.notification} />
                     <CustomDrawerItem label={constants.screens.favourite} icon={icons.favourite} />
@@ -125,8 +140,6 @@ export const CustomDrawerContent = ({navigation}) => {
 
 export const CustomDrawer = () => {
 
-    const [progress, setProgress] = useState(new Animated.Value(0));
-
     return (
         <View style={{
             flex: 1,
@@ -149,11 +162,7 @@ export const CustomDrawer = () => {
                  }}                                            
                 initialRouteName="MainLayout"
                 drawerContent={ 
-                        props => {
-                            setTimeout(() => {
-                                setProgress(props.progress);
-                            }, 0)
-                            
+                        props => {                           
                             return (<CustomDrawerContent navigation={props.navigation} />)
                         }
                     }
