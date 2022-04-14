@@ -40,7 +40,6 @@ export const CustomDrawerContent = ({navigation}) => {
 
     const dispatch = useDispatch();
     const selectedTab = useSelector(state => state.tab.selectedTab);
-    console.log(selectedTab);
 
     return (
         <DrawerContentScrollView
@@ -114,7 +113,7 @@ export const CustomDrawerContent = ({navigation}) => {
                     <CustomDrawerItem 
                         label={constants.screens.my_wallet}
                         icon={icons.wallet}
-                        isFocused={selectedTab === constants.screens.wallet} 
+                        isFocused={selectedTab === constants.screens.my_wallet} 
                         onPress={ () => { 
                             dispatch(setSelectedTab(constants.screens.my_wallet));
                             navigation.navigate('MainLayout'); 
