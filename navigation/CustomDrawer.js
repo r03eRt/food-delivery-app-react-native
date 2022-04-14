@@ -11,7 +11,7 @@ import { setSelectedTab } from '../stores/tab/tabActions';
 
 const Drawer = createDrawerNavigator();
 
-export const CustomDrawerItem = ({icon, label }) => {
+export const CustomDrawerItem = ({icon, label, isFocused, onPress }) => {
     return(
         <TouchableOpacity style={{
             flexDirection: 'row',
@@ -19,8 +19,11 @@ export const CustomDrawerItem = ({icon, label }) => {
             height: 40,
             marginBottom: SIZES.base,
             paddingLeft: SIZES.radius,
-            borderRadius: SIZES.base
-        }}>
+            borderRadius: SIZES.base,
+            backgroundColor: isFocused ? COLORS.transparentBlack1 : null
+        }}
+        onPress={onPress}
+        >
             <Image source={icon} style={{width: 20, height: 20, tintColor: COLORS.white }}/>
             <Text style={{
                 marginLeft: 15,
@@ -37,6 +40,7 @@ export const CustomDrawerContent = ({navigation}) => {
 
     const dispatch = useDispatch();
     const selectedTab = useSelector(state => state.tab.selectedTab);
+    console.log(selectedTab);
 
     return (
         <DrawerContentScrollView
@@ -102,15 +106,38 @@ export const CustomDrawerContent = ({navigation}) => {
                         label={constants.screens.home}
                         icon={icons.home}
                         isFocused={selectedTab === constants.screens.home} 
-                        onPress={() => console.log('AAAA') }
-                        // onPress={ () => { 
-                        //     dispatch(setSelectedTab(constants.screens.home));
-                        //     navigation.navigate('MainLayout'); 
-                        // } } 
+                        onPress={ () => { 
+                            dispatch(setSelectedTab(constants.screens.home));
+                            navigation.navigate('MainLayout'); 
+                        } } 
                     />
-                    <CustomDrawerItem label={constants.screens.my_wallet} icon={icons.wallet} />
-                    <CustomDrawerItem label={constants.screens.notification} icon={icons.notification} />
-                    <CustomDrawerItem label={constants.screens.favourite} icon={icons.favourite} />
+                    <CustomDrawerItem 
+                        label={constants.screens.my_wallet}
+                        icon={icons.wallet}
+                        isFocused={selectedTab === constants.screens.wallet} 
+                        onPress={ () => { 
+                            dispatch(setSelectedTab(constants.screens.my_wallet));
+                            navigation.navigate('MainLayout'); 
+                        } } 
+                    />
+                    <CustomDrawerItem 
+                        label={constants.screens.notification}
+                        icon={icons.notification}
+                        isFocused={selectedTab === constants.screens.notification} 
+                        onPress={ () => { 
+                            dispatch(setSelectedTab(constants.screens.notification));
+                            navigation.navigate('MainLayout'); 
+                        } } 
+                    />
+                    <CustomDrawerItem 
+                        label={constants.screens.favourite}
+                        icon={icons.favourite}
+                        isFocused={selectedTab === constants.screens.favourite} 
+                        onPress={ () => { 
+                            dispatch(setSelectedTab(constants.screens.favourite));
+                            navigation.navigate('MainLayout'); 
+                        } } 
+                    />
                     {/** Line DIvider */}
                     <View style={{
                         height: 1,
